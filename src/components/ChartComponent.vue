@@ -1,6 +1,8 @@
 <!-- ChartComponent.vue -->
 <template>
-  <Bar :data="chartData" />
+  <div v-if="this.LoaderStore.F2Data.length > 0">
+    <Bar :data="renderChart" />
+  </div>
 
   <!-- <div class="bg-white p-4">
     <Bar :data="chartData" />
@@ -8,6 +10,7 @@
 </template>
   
   <script>
+import { mapState } from "vuex";
 import { Bar } from "vue-chartjs";
 import {
   Chart as ChartJS,
@@ -33,17 +36,25 @@ export default {
   components: { Bar },
   data() {
     return {
-      chartData: {
-        labels: ["January", "February", "March"],
+    };
+  },
+  created() {
+    this.$store.dispatch("LoaderStore/getGraphDaraTwo");
+  },
+  computed: {
+    ...mapState(["LoaderStore"]),
+    renderChart() {
+      return {
+        labels: this.LoaderStore.F2Data,
         datasets: [
           {
-            label: "Data One",
-            backgroundColor: "#f87979",
-            data: [40, 20, 12],
+            label: "Students Father Job",
+            backgroundColor: ['#C28535', '#8AAE56', '#B66C46', '#fff633', '#1ba89d', '#a61ba8'],
+            data: this.LoaderStore.F1Data,
           },
         ],
-      },
-    };
+      };
+    },
   },
 };
 </script>

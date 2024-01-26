@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 import DataTable from "datatables.net-vue3";
 import DataTablesCore from "datatables.net";
 import $ from "jquery";
@@ -45,49 +45,62 @@ export default {
   computed: {
     ...mapState(["LoaderStore"]),
   },
-  mounted() {
-    this.LoaderStore.isLoading = true;
-    this.dataTable = $("#user-table").DataTable({});
-    axios({
-      url: `users`,
-    })
-      .then((response) => {
-        response.data.data.forEach((item) => {
-          this.users.push(item);
-        });
+  created() {
+    this.$store.dispatch("LoaderStore/getTableData");
+  },
+  // mounted() {
+  //   this.LoaderStore.isLoading = true;
+  //   this.dataTable = $("#user-table").DataTable({});
+  //   axios({
+  //     url: `users`,
+  //   })
+  //     .then((response) => {
+  //       response.data.data.forEach((item) => {
+  //         this.users.push(item);
+  //       });
 
-        this.users.forEach((user, index) => {
-          this.dataTable.row
-            .add([
-              index + 1,
-              '<a href="#">' + user.school + "</a>",
-              user.sex,
-              user.G1,
-              user.G2,
-              user.G3,
-            ])
-            .draw(false);
-        });
-        this.LoaderStore.isLoading = false;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    // fetch(url)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     data.forEach((item) => {
-    //       this.users.push(item);
-    //     });
-
-    //     this.users.forEach((user) => {
-    //       this.dataTable.row
-    //         .add([user.age, '<a href="#">' + user.school + "</a>", user.sex])
-    //         .draw(false);
-    //     });
-    //   });
-    console.log(this.dataTable);
+  //       this.users.forEach((user, index) => {
+  //         this.dataTable.row
+  //           .add([
+  //             index + 1,
+  //             '<a href="#">' + user.school + "</a>",
+  //             user.sex,
+  //             user.G1,
+  //             user.G2,
+  //             user.G3,
+  //           ])
+  //           .draw(false);
+  //       });
+  //       this.LoaderStore.isLoading = false;
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   console.log(this.dataTable);
+  // },
+  watch: {
+    "LoaderStore.users": {
+      handler() {
+        if (this.LoaderStore.users.length > 0) {
+          this.dataTable = $("#user-table").DataTable({});
+          this.LoaderStore.users.forEach((user, index) => {
+            this.dataTable.row
+              .add([
+                index + 1,
+                '<a href="#">' + user.school + "</a>",
+                user.sex,
+                user.G1,
+                user.G2,
+                user.G3,
+              ])
+              .draw(false);
+          });
+        }
+        //this.chart_val = [this.chartdata, this.improved];
+        //this.buildChart(this.chartdata, this.improved - this.chartdata);
+      },
+      deep: true,
+    },
   },
   // Table component logic
 };

@@ -1,13 +1,12 @@
 <!-- ChartComponent.vue -->
 <template>
-  <Line :data="chartData" />
-
-  <!-- <div class="bg-white p-4">
-    <Bar :data="chartData" />
-  </div> -->
+  <div v-if="this.LoaderStore.G2Data.length > 0">
+    <Line :data="renderChart" :options="options" />
+  </div>
 </template>
   
   <script>
+import { mapState } from "vuex";
 import { Line } from "vue-chartjs";
 import {
   Chart as ChartJS,
@@ -17,7 +16,7 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 } from "chart.js";
 
 ChartJS.register(
@@ -35,50 +34,44 @@ export default {
   components: { Line },
   data() {
     return {
-      chartData: {
-        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      chartData: {},
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    };
+  },
+  created() {
+    this.$store.dispatch("LoaderStore/getGraphDara");
+  },
+  computed: {
+    ...mapState(["LoaderStore"]),
+    renderChart() {
+      return {
+        labels: this.LoaderStore.G2Data,
         datasets: [
           {
-            backgroundColor: "rgba(99,179,237,0.4)",
+            label: "Gender Count",
+            backgroundColor: ['#C28535', '#8AAE56', '#B66C46', '#fff633', '#1ba89d', '#a61ba8'],
             strokeColor: "#63b3ed",
             pointColor: "#fff",
             pointStrokeColor: "#63b3ed",
-            data: [203, 156, 99, 251, 305, 247, 256],
+            data: this.LoaderStore.G1Data,
           },
-          {
-            backgroundColor: "rgba(198,198,198,0.4)",
-            strokeColor: "#f7fafc",
-            pointColor: "#fff",
-            pointStrokeColor: "#f7fafc",
-            data: [86, 97, 144, 114, 94, 108, 156],
-          },
+          // {
+          //   label: "Data Two",
+          //   backgroundColor: "rgba(198,198,198,0.4)",
+          //   strokeColor: "#f7fafc",
+          //   pointColor: "#fff",
+          //   pointStrokeColor: "#f7fafc",
+          //   data: [86, 97, 144, 114, 94, 108, 156],
+          // },
         ],
-      },
-      options: {
-    legend: {
-      display: false,
-    },
-    scales: {
-      yAxes: [
-        {
-          gridLines: {
-            display: false,
-          },
-          ticks: {
-            display: false,
-          },
-        },
-      ],
-      xAxes: [
-        {
-          gridLines: {
-            display: false,
-          },
-        },
-      ],
+      };
     },
   },
-    };
+  mounted() {
+    //this.renderChart();
   },
 };
 </script>
