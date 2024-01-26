@@ -7,24 +7,36 @@
       :is-full-page="fullPage"
     />
     <div class="lg:flex justify-between items-center mb-6">
-      <p class="text-2xl font-semibold mb-2 lg:mb-0 getText">Good afternoon, Joe!</p>
-      <button
-        v-on:click="performance"
-        class="bg-blue-500 hover:bg-blue-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow getPerformance"
-      >
-        Performance
-      </button>
-      <button
-        v-on:click="averageScore"
-        style="margin-left: 1%"
-        class="bg-blue-500 hover:bg-blue-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow getAverage"
-      >
-        Average Score
-      </button>
+      <p class="text-2xl font-semibold mb-2 lg:mb-0 getText">
+        Good afternoon, GUST!
+      </p>
+    </div>
+
+    <div class="flex flex-wrap -mx-3 mb-10">
+      <div class="w-full">
+        <p class="text-m font-semibold mb-4">Click On Performance & Avg Score Button</p>
+      </div>
+      <div class="w-1/2 xl:w-1/2 px-3">
+        <button
+          v-on:click="performance"
+          class="w-full bg-blue-500 hover:bg-blue-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow getPerformance"
+        >
+          Performance
+        </button>
+      </div>
+      <div class="w-1/2 xl:w-1/2 px-3">
+        <button
+          v-on:click="averageScore"
+          style="margin-left: 1%"
+          class="w-full bg-blue-500 hover:bg-blue-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow getAverage"
+        >
+          Average Score
+        </button>
+      </div>
     </div>
     <div
       v-if="this.performanceData.length > 0"
-      class="flex flex-wrap -mx-3 mb-20"
+      class="flex flex-wrap -mx-3 mb-10"
     >
       <div class="w-full">
         <p class="text-xl font-semibold mb-4">
@@ -50,12 +62,10 @@
     </div>
     <div
       v-if="Object.keys(this.averageData).length > 0"
-      class="flex flex-wrap -mx-3 mb-20"
+      class="flex flex-wrap -mx-3 mb-10"
     >
       <div class="w-full">
-        <p class="text-xl font-semibold mb-4">
-          Performance Of G1, G2, G3
-        </p>
+        <p class="text-xl font-semibold mb-4">Performance Of G1, G2, G3</p>
       </div>
       <div
         class="w-1/3 xl:w-1/3 px-3"
@@ -74,13 +84,15 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-wrap -mx-3 mb-20">
+    <div class="flex flex-wrap -mx-3 mb-10">
       <div class="w-1/2 xl:w-1/4 px-3">
         <div
           class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6 xl:mb-0"
         >
           <div class="text-gray-700">
-            <p class="font-semibold text-3xl">{{ this.LoaderStore.totalStudent}}</p>
+            <p class="font-semibold text-3xl">
+              {{ this.LoaderStore.totalStudent }}
+            </p>
             <p>Student</p>
           </div>
         </div>
@@ -89,9 +101,11 @@
       <div class="w-1/2 xl:w-1/4 px-3">
         <div
           class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6 xl:mb-0"
-        > 
+        >
           <div class="text-gray-700">
-            <p class="font-semibold text-3xl">{{ this.LoaderStore.totalMale}}</p>
+            <p class="font-semibold text-3xl">
+              {{ this.LoaderStore.totalMale }}
+            </p>
             <p>Male</p>
           </div>
         </div>
@@ -102,7 +116,9 @@
           class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6"
         >
           <div class="text-gray-700">
-            <p class="font-semibold text-3xl">{{ this.LoaderStore.totalFemale}}</p>
+            <p class="font-semibold text-3xl">
+              {{ this.LoaderStore.totalFemale }}
+            </p>
             <p>Female</p>
           </div>
         </div>
@@ -121,7 +137,7 @@
     </div>
     <!-- <ChartComponent />
     <TableComponent /> -->
-    <div class="flex flex-wrap -mx-3 mb-20">
+    <div class="flex flex-wrap -mx-3 mb-10">
       <div class="w-full xl:w-1/2 xl:h-1/2 px-3">
         <p class="text-xl font-semibold mb-4">Chart by Father Job</p>
 
