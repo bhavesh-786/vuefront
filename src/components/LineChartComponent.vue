@@ -58,20 +58,11 @@ export default {
             pointStrokeColor: "#63b3ed",
             data: this.LoaderStore.G1Data,
           },
-          // {
-          //   label: "Data Two",
-          //   backgroundColor: "rgba(198,198,198,0.4)",
-          //   strokeColor: "#f7fafc",
-          //   pointColor: "#fff",
-          //   pointStrokeColor: "#f7fafc",
-          //   data: [86, 97, 144, 114, 94, 108, 156],
-          // },
         ],
       };
     },
   },
   mounted() {
-    //this.renderChart();
   },
 };
 </script>

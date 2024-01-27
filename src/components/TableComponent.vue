@@ -78,6 +78,9 @@ export default {
   //     });
   //   console.log(this.dataTable);
   // },
+  /**
+   * Watcher to check updated users listing on Load & set datatable
+  */
   watch: {
     "LoaderStore.users": {
       handler() {
@@ -96,8 +99,6 @@ export default {
               .draw(false);
           });
         }
-        //this.chart_val = [this.chartdata, this.improved];
-        //this.buildChart(this.chartdata, this.improved - this.chartdata);
       },
       deep: true,
     },

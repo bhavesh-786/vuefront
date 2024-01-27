@@ -3,10 +3,6 @@
   <div v-if="this.LoaderStore.F2Data.length > 0">
     <Bar :data="renderChart" />
   </div>
-
-  <!-- <div class="bg-white p-4">
-    <Bar :data="chartData" />
-  </div> -->
 </template>
   
   <script>

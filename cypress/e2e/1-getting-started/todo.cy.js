@@ -4,8 +4,7 @@ describe('Load Dashboard', () => {
   })
 
   it('displays Dashboard Text', () => {
-    cy.get('.justify-between.items-center .getText').should('have.text', 'Good afternoon, Joe!')
-    //cy.get('.todo-list li').last().should('have.text', 'Walk the dog')
+    cy.get('.justify-between.items-center .getText').should('have.text', 'Good afternoon')
   })
 
   it('get permormance on click', () => {

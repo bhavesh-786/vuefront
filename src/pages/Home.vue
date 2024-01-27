@@ -7,14 +7,13 @@
       :is-full-page="fullPage"
     />
     <div class="lg:flex justify-between items-center mb-6">
-      <p class="text-2xl font-semibold mb-2 lg:mb-0 getText">
-        Good afternoon, GUST!
-      </p>
+      <p class="text-2xl font-semibold mb-2 lg:mb-0 getText">Good afternoon</p>
     </div>
-
     <div class="flex flex-wrap -mx-3 mb-10">
       <div class="w-full">
-        <p class="text-m font-semibold mb-4">Click On Performance & Avg Score Button</p>
+        <p class="text-m font-semibold mb-4">
+          Click On Performance & Avg Score Button
+        </p>
       </div>
       <div class="w-1/2 xl:w-1/2 px-3">
         <button
@@ -34,6 +33,7 @@
         </button>
       </div>
     </div>
+    <!-- Performance Data Component -->
     <div
       v-if="this.performanceData.length > 0"
       class="flex flex-wrap -mx-3 mb-10"
@@ -60,6 +60,7 @@
         </div>
       </div>
     </div>
+    <!-- Average Score Data Component -->
     <div
       v-if="Object.keys(this.averageData).length > 0"
       class="flex flex-wrap -mx-3 mb-10"
@@ -84,6 +85,7 @@
         </div>
       </div>
     </div>
+    <!-- Data Component for display Number of student, student by gander -->
     <div class="flex flex-wrap -mx-3 mb-10">
       <div class="w-1/2 xl:w-1/4 px-3">
         <div
@@ -135,17 +137,16 @@
         </div>
       </div>
     </div>
-    <!-- <ChartComponent />
-    <TableComponent /> -->
+    <!-- Chart Component -->
     <div class="flex flex-wrap -mx-3 mb-10">
+      <!-- Bar Chart Component -->
       <div class="w-full xl:w-1/2 xl:h-1/2 px-3">
         <p class="text-xl font-semibold mb-4">Chart by Father Job</p>
-
         <div class="w-full bg-white border rounded-lg p-4 mb-8 xl:mb-0">
           <ChartComponent />
         </div>
       </div>
-
+      <!-- Line Chart Component -->
       <div class="w-full xl:w-1/2 xl:h-1/2 px-3">
         <p class="text-xl font-semibold mb-4">Chart By Gendar</p>
 
@@ -155,7 +156,7 @@
       </div>
     </div>
     <!-- <DoughnutComponent /> -->
-
+    <!-- Table Component -->
     <div class="flex flex-wrap -mx-3">
       <div class="w-full px-3">
         <p class="text-xl font-semibold mb-4">Student Performance Data</p>
@@ -169,8 +170,6 @@
 </template>
 
 <script>
-//import Chart from 'chart.js'
-//import { Bar } from "vue-chartjs";
 import axios from "axios";
 import { mapState } from "vuex";
 
@@ -203,28 +202,44 @@ export default {
   },
   mounted() {},
   methods: {
+    /**
+     * On click Button Performance
+     * fetch performance by gander
+     */
     performance() {
+      // Start loader overlay
       this.LoaderStore.isLoading = true;
       axios({
         url: `performance-by-gender`,
       })
         .then((response) => {
+          // Set Gender performance Data
           this.performanceData = response.data.performanceByGender;
+          // set average score data null
           this.averageData = [];
+          // End loader overlay
           this.LoaderStore.isLoading = false;
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    /**
+     * On click Button Average Score
+     * fetch Average Score Of G1, G2, G3
+     */
     averageScore() {
+      // Start loader overlay
       this.LoaderStore.isLoading = true;
       axios({
         url: `average-score`,
       })
         .then((response) => {
+          //set Average Score data of g1, g2, g3
           this.averageData = response.data.data;
+          //set performance data null
           this.performanceData = [];
+          // End loader overlay
           this.LoaderStore.isLoading = false;
         })
         .catch((error) => {

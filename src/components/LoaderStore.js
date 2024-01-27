@@ -1,4 +1,3 @@
-//import Vue from 'vue'
 import axios from 'axios'
 export default {
   namespaced: true,
@@ -24,18 +23,18 @@ export default {
       state.G1Data = data.count;
       state.G2Data = data.gender;
       console.log(data.gender)
-      //state.G2Data = data.G2;
-      //state.G3Data = data.G3;
     },
     LoadDataTwo(state, data) {
       state.F1Data = data.count;
       state.F2Data = data.job;
       console.log(data.job)
-      //state.G2Data = data.G2;
-      //state.G3Data = data.G3;
     },
   },
   actions: {
+    /**
+     * To fetch data for table component
+     * @param {*} param0 
+     */
     async getTableData({ commit, state }) {
       state.isLoading = true;
       this.dataTable = $("#user-table").DataTable({});
@@ -43,8 +42,11 @@ export default {
         url: `users`,
       })
         .then((response) => {
+          //set total male count
           state.totalMale = response.data.male
+          //set total female count
           state.totalFemale = response.data.female
+          //set total students count
           state.totalStudent = response.data.count;
           commit('LoadTableData', response.data.data)
 
@@ -54,9 +56,12 @@ export default {
           console.log(error);
         });
     },
+    /**
+     * To fetch data for Line chart
+     * @param {*} param0 
+     */
     async getGraphDara({ commit, state }) {
       state.isLoading = true
-      //state.data = {}
       await axios({
         url: 'graphData',
         method: 'GET',
@@ -72,7 +77,10 @@ export default {
         })
       state.isLoading = false
     },
-
+    /**
+     * To Fetch data for bar chart
+     * @param {*} param0 
+     */
     async getGraphDaraTwo({ commit, state }) {
       state.isLoading = true
       //state.data = {}
